@@ -2,8 +2,7 @@ package ru.job4j.assertj;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.withPrecision;
+import static org.assertj.core.api.Assertions.*;
 
 class BoxTest {
 
@@ -12,8 +11,8 @@ class BoxTest {
         Box box = new Box(0, 10);
         String name = box.whatsThis();
         assertThat(name).isNotEqualTo("Cube")
-                .isNotEmpty()
-                .isEqualTo("Sphere");
+                        .isNotEmpty()
+                        .isEqualTo("Sphere");
     }
 
     @Test
@@ -21,8 +20,8 @@ class BoxTest {
         Box box = new Box(3, 10);
         String name = box.whatsThis();
         assertThat(name).isNotEmpty()
-                .containsWhitespaces()
-                .isEqualTo("Unknown object");
+                        .containsWhitespaces()
+                        .isEqualTo("Unknown object");
     }
 
     @Test
@@ -30,8 +29,8 @@ class BoxTest {
         Box box = new Box(6, 10);
         int count = box.getNumberOfVertices();
         assertThat(count).isEven()
-                .isPositive()
-                .isEqualTo(6);
+                         .isPositive()
+                         .isEqualTo(6);
     }
 
     @Test
@@ -39,7 +38,7 @@ class BoxTest {
         Box box = new Box(4, 10);
         boolean result = box.isExist();
         assertThat(result).isEqualTo(true)
-                .isTrue();
+                          .isTrue();
     }
 
     @Test
@@ -47,8 +46,8 @@ class BoxTest {
         Box box = new Box(4, 10);
         double result = box.getArea();
         assertThat(result).isNotZero()
-                .isBetween(100.0, 200.0)
-                .isEqualTo(173.205, withPrecision(0.01));
+                          .isBetween(100.0, 200.0)
+                          .isEqualTo(173.205, withPrecision(0.01));
     }
 
     @Test
@@ -56,6 +55,6 @@ class BoxTest {
         Box box = new Box(3, 10);
         double result = box.getArea();
         assertThat(result).isNotNaN()
-                .isZero();
+                          .isZero();
     }
 }

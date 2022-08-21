@@ -1,7 +1,6 @@
 package ru.job4j.iterator;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class MatrixIt implements Iterator<Integer> {
     private final int[][] data;

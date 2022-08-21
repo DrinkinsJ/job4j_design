@@ -1,16 +1,21 @@
 package ru.job4j.iterator;
 
-import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+
 import java.util.*;
+
+import static org.assertj.core.api.Assertions.*;
 
 class FlatMapTest {
     @Test
     void whenDiffNext() {
         Iterator<Iterator<Integer>> data = List.of(
-                List.of(1).iterator(),
-                List.of(2, 3).iterator()
-        ).iterator();
+                List.of(1)
+                    .iterator(),
+                List.of(2, 3)
+                    .iterator()
+        )
+                                               .iterator();
         FlatMap<Integer> flat = new FlatMap<>(data);
         assertThat(flat.next()).isEqualTo(1);
         assertThat(flat.next()).isEqualTo(2);
@@ -20,8 +25,10 @@ class FlatMapTest {
     @Test
     void whenSeqNext() {
         Iterator<Iterator<Integer>> data = List.of(
-                List.of(1, 2, 3).iterator()
-        ).iterator();
+                List.of(1, 2, 3)
+                    .iterator()
+        )
+                                               .iterator();
         FlatMap<Integer> flat = new FlatMap<>(data);
         assertThat(flat.next()).isEqualTo(1);
         assertThat(flat.next()).isEqualTo(2);
@@ -31,8 +38,10 @@ class FlatMapTest {
     @Test
     void whenMultiHasNext() {
         Iterator<Iterator<Integer>> data = List.of(
-                List.of(1).iterator()
-        ).iterator();
+                List.of(1)
+                    .iterator()
+        )
+                                               .iterator();
         FlatMap<Integer> flat = new FlatMap<>(data);
         assertThat(flat.hasNext()).isTrue();
         assertThat(flat.hasNext()).isTrue();
@@ -41,8 +50,10 @@ class FlatMapTest {
     @Test
     void whenHasNextFalse() {
         Iterator<Iterator<Integer>> data = List.of(
-                List.of(1).iterator()
-        ).iterator();
+                List.of(1)
+                    .iterator()
+        )
+                                               .iterator();
         FlatMap<Integer> flat = new FlatMap<>(data);
         assertThat(flat.next()).isEqualTo(1);
         assertThat(flat.hasNext()).isFalse();
@@ -52,7 +63,8 @@ class FlatMapTest {
     void whenEmpty() {
         Iterator<Iterator<Object>> data = List.of(
                 Collections.emptyIterator()
-        ).iterator();
+        )
+                                              .iterator();
         FlatMap<Object> flat = new FlatMap<>(data);
         assertThatThrownBy(flat::next)
                 .isInstanceOf(NoSuchElementException.class);
@@ -63,7 +75,8 @@ class FlatMapTest {
         Iterator<Integer> empty = Collections.emptyIterator();
         Iterator<Iterator<Integer>> data = List.of(
                 empty
-        ).iterator();
+        )
+                                               .iterator();
         FlatMap<Integer> flat = new FlatMap<>(data);
         assertThatThrownBy(flat::next)
                 .isInstanceOf(NoSuchElementException.class);
@@ -76,8 +89,10 @@ class FlatMapTest {
                 empty,
                 empty,
                 empty,
-                List.of(1).iterator()
-        ).iterator();
+                List.of(1)
+                    .iterator()
+        )
+                                               .iterator();
         FlatMap<Integer> flat = new FlatMap<>(data);
         assertThat(flat.hasNext()).isTrue();
         assertThat(flat.next()).isEqualTo(1);
@@ -90,7 +105,8 @@ class FlatMapTest {
                 empty,
                 empty,
                 empty
-        ).iterator();
+        )
+                                               .iterator();
         FlatMap<Integer> flat = new FlatMap<>(data);
         assertThat(flat.hasNext()).isFalse();
     }

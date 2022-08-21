@@ -5,6 +5,12 @@ import java.util.stream.Collectors;
 
 public class UserMap {
 
+    public static List<User> map(List<Integer> ages) {
+        return ages.stream()
+                   .map(User::new)
+                   .collect(Collectors.toList());
+    }
+
     public static class User {
 
         private int age;
@@ -16,11 +22,5 @@ public class UserMap {
         public int getAge() {
             return age;
         }
-    }
-
-    public static List<User> map(List<Integer> ages) {
-        return ages.stream()
-                   .map(User::new)
-                   .collect(Collectors.toList());
     }
 }

@@ -1,8 +1,6 @@
 package ru.job4j.assertj;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class NameLoad {
@@ -13,14 +11,14 @@ public class NameLoad {
             throw new IllegalArgumentException("Names array is empty");
         }
         values.putAll(Arrays.stream(names)
-                .map(String::trim)
-                .filter(this::validate)
-                .map(s -> s.split("=", 2))
-                .collect(Collectors.toMap(
-                        e -> e[0],
-                        e -> e[1],
-                        (first, second) -> String.format("%s+%s", first, second)
-                )));
+                            .map(String::trim)
+                            .filter(this::validate)
+                            .map(s -> s.split("=", 2))
+                            .collect(Collectors.toMap(
+                                    e -> e[0],
+                                    e -> e[1],
+                                    (first, second) -> String.format("%s+%s", first, second)
+                            )));
     }
 
     private boolean validate(String name) {

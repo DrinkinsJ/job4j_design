@@ -10,7 +10,7 @@ class NameLoadTest {
     void checkEmpty() {
         NameLoad nameLoad = new NameLoad();
         assertThatThrownBy(nameLoad::getMap).isInstanceOf(IllegalStateException.class)
-                .hasMessageContaining("no data");
+                                            .hasMessageContaining("no data");
     }
 
     @Test
@@ -18,8 +18,8 @@ class NameLoadTest {
         NameLoad nameLoad = new NameLoad();
         String name = "IvanName";
         assertThatThrownBy(() -> nameLoad.parse(name)).isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(
-                        "this name: %s does not contain the symbol \"=\"", name);
+                                                      .hasMessageContaining(
+                                                              "this name: %s does not contain the symbol \"=\"", name);
     }
 
     @Test
@@ -27,8 +27,8 @@ class NameLoadTest {
         NameLoad nameLoad = new NameLoad();
         String name = "=Name";
         assertThatThrownBy(() -> nameLoad.parse(name)).isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("this name: %s does not contain a key",
-                        name);
+                                                      .hasMessageContaining("this name: %s does not contain a key",
+                                                              name);
     }
 
     @Test
@@ -36,7 +36,7 @@ class NameLoadTest {
         NameLoad nameLoad = new NameLoad();
         String name = "Ivan=";
         assertThatThrownBy(() -> nameLoad.parse(name)).isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("this name: %s does not contain a value",
-                        name);
+                                                      .hasMessageContaining("this name: %s does not contain a value",
+                                                              name);
     }
 }

@@ -2,10 +2,9 @@ package ru.job4j.stream;
 
 import org.junit.Test;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class UserMapTest {
 
@@ -14,7 +13,9 @@ public class UserMapTest {
         List<Integer> ages = List.of(1, 2);
         List<UserMap.User> result = UserMap.map(ages);
         Iterator<UserMap.User> iterator = result.iterator();
-        assertEquals(1, iterator.next().getAge());
-        assertEquals(2, iterator.next().getAge());
+        assertEquals(1, iterator.next()
+                                .getAge());
+        assertEquals(2, iterator.next()
+                                .getAge());
     }
 }
