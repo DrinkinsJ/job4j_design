@@ -6,80 +6,69 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class SimpleLinkedList<E> implements LinkedList<E> {
-    private Node<E> last;
-    private Node<E> first;
-    private int size = 0;
+    private Node<E> node;
+    private int size;
     private int modCount;
 
-    @Override
     public void add(E value) {
-        final Node<E> l = last;
-        final Node<E> newNode = new Node<>(l, value, null);
-        last = newNode;
-        if (l == null) {
-            first = newNode;
-        } else {
-            l.next = newNode;
-        }
         size++;
         modCount++;
+
+        Node<E> newNode = new Node<>(value, null);
+        if (node == null) {
+            node = newNode;
+            return;
+        }
+
+        Node<E> tail = node;
+        while (tail.next != null) {
+            tail = tail.next;
+        }
+        tail.next = newNode;
     }
 
-    @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        return node(index).item;
-    }
-
-    Node<E> node(int index) {
-        Node<E> x = first;
+        Node<E> x = node;
         for (int i = 0; i < index; i++) {
             x = x.next;
         }
-        return x;
+        return x.value;
     }
 
     @Override
     public Iterator<E> iterator() {
-        return new Iterator<E>() {
-
-            private final int expectedModCount = modCount;
-            Node<E> lastReturned;
-            private int cursor = 0;
+        return new Iterator<>() {
+            private Node<E> tail = node;
+            final int expectedMod = modCount;
 
             @Override
             public boolean hasNext() {
-                return cursor != size;
+                if (modCount != expectedMod) {
+                    throw new ConcurrentModificationException();
+                }
+                return tail != null;
             }
 
             @Override
             public E next() {
-                checkForComodification();
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                lastReturned = node(cursor);
-                cursor++;
-                return lastReturned.item;
-            }
-
-            void checkForComodification() {
-                if (modCount != expectedModCount) {
-                    throw new ConcurrentModificationException();
-                }
+                E value = tail.value;
+                tail = tail.next;
+                return value;
             }
         };
     }
 
     private static class Node<E> {
-        E item;
-        Node<E> next;
-        Node<E> prev;
+        private final E value;
+        private Node<E> next;
 
-        Node(Node<E> prev, E element, Node<E> next) {
-            this.item = element;
+        public Node(E value, Node<E> next) {
+            this.value = value;
             this.next = next;
-            this.prev = prev;
         }
     }
 }
