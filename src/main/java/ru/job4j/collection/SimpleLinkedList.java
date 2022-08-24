@@ -18,8 +18,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         last = newNode;
         if (l == null) {
             first = newNode;
-        }
-        else {
+        } else {
             l.next = newNode;
         }
         size++;
@@ -34,8 +33,9 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
     Node<E> node(int index) {
         Node<E> x = first;
-        for (int i = 0; i < index; i++)
+        for (int i = 0; i < index; i++) {
             x = x.next;
+        }
         return x;
     }
 
