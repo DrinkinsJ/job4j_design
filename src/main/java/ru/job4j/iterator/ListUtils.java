@@ -10,7 +10,6 @@ public class ListUtils {
         ListIterator<T> iterator = list.listIterator(index);
         iterator.previousIndex();
         iterator.add(value);
-        iterator.next();
     }
 
     public static <T> void addAfter(List<T> list, int index, T value) {
@@ -18,7 +17,6 @@ public class ListUtils {
         ListIterator<T> iterator = list.listIterator(index);
         iterator.next();
         iterator.add(value);
-        iterator.next();
     }
 
     public static <T> void removeIf(List<T> list, Predicate<T> filter) {
