@@ -15,7 +15,13 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     
     @SuppressWarnings("unchecked")
     public SimpleArrayList(int capacity) {
-        this.container = (T[]) new Object[capacity];
+        if (capacity > 0) {
+            this.container = (T[]) new Object[capacity];
+        } else if (capacity == 0) {
+            this.container = (T[]) new Object[DEFAULT_CAPACITY];
+        } else {
+            throw new IllegalArgumentException("Illegal Capacity: " + capacity);
+        }
     }
 
     @Override
