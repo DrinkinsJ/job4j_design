@@ -46,11 +46,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
         table = new MapEntry[capacity];
         for (MapEntry<K, V> e : oldTab) {
             if (e != null) {
-                if (e.key == null) {
-                    table[indexFor(hash(Objects.hashCode(null)))] = e;
-                } else {
                     table[indexFor(hash(Objects.hashCode(e.key)))] = e;
-                }
             }
         }
     }
@@ -58,22 +54,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         V value = null;
-        int bucket;
-        if (key == null) {
-            bucket = indexFor(hash(Objects.hashCode(null)));
-        } else {
-            bucket = indexFor(hash(key.hashCode()));
-        }
-        if (table[bucket] != null && table[bucket].key != null) {
-            if (key == null) {
-                if (table[bucket].key == null) {
-                    value = table[0].value;
-                }
-            } else if (key.hashCode() == table[bucket].key.hashCode() && key.equals(table[bucket].key)) {
+        int bucket = indexFor(hash(Objects.hashCode(key)));
+        if (table[bucket] != null) {
+            if (Objects.hashCode(key) == Objects.hashCode(table[bucket].key) 
+                    && Objects.equals(key, table[bucket].key)) {
                 value = table[bucket].value;
             }
-        } else if (key == null && table[bucket].value != null && table[bucket].key == null) {
-            value = table[bucket].value;
         }
         return value;
     }
@@ -83,11 +69,14 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public boolean remove(K key) {
         int bucket = indexFor(hash(Objects.hashCode(key)));
         boolean removed = false;
-        if ((table[bucket] != null && key == null) || (table[bucket] != null && table[bucket].key.equals(key))) {
-            table[bucket] = null;
-            removed = true;
-            count--;
-            modCount++;
+        if (table[bucket] != null) {
+            if (Objects.hashCode(key) == Objects.hashCode(table[bucket].key)
+                    && Objects.equals(key, table[bucket].key)) {
+                table[bucket] = null;
+                removed = true;
+                count--;
+                modCount++;
+            }
         }
         return removed;
     }
