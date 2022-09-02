@@ -20,7 +20,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
         if (count >= capacity * LOAD_FACTOR) {
             expand();
         }
-        int bucket = key == null ? hash(0) : indexFor(hash(key.hashCode()));
+        int bucket = indexFor(hash(Objects.hashCode(key)));
         boolean added = false;
         if (table[bucket] == null) {
             table[bucket] = new MapEntry<>(key, value);
@@ -47,9 +47,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
         for (MapEntry<K, V> e : oldTab) {
             if (e != null) {
                 if (e.key == null) {
-                    table[indexFor(hash(0))] = new MapEntry<>(null, e.value);
+                    table[indexFor(hash(Objects.hashCode(null)))] = e;
                 } else {
-                    table[indexFor(hash(e.key.hashCode()))] = new MapEntry<>(e.key, e.value);
+                    table[indexFor(hash(Objects.hashCode(e.key)))] = e;
                 }
             }
         }
@@ -60,7 +60,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
         V value = null;
         int bucket;
         if (key == null) {
-            bucket = indexFor(0);
+            bucket = indexFor(hash(Objects.hashCode(null)));
         } else {
             bucket = indexFor(hash(key.hashCode()));
         }
@@ -68,7 +68,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
             if (key == null) {
                 if (table[bucket].key == null) {
                     value = table[0].value;
-                } 
+                }
             } else if (key.hashCode() == table[bucket].key.hashCode() && key.equals(table[bucket].key)) {
                 value = table[bucket].value;
             }
@@ -81,7 +81,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean remove(K key) {
-        int bucket = key == null ? hash(0) : indexFor(hash(key.hashCode()));
+        int bucket = indexFor(hash(Objects.hashCode(key)));
         boolean removed = false;
         if ((table[bucket] != null && key == null) || (table[bucket] != null && table[bucket].key.equals(key))) {
             table[bucket] = null;
@@ -96,24 +96,19 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public Iterator<K> iterator() {
         return new Iterator<>() {
             final int expectedModCount = modCount;
-            int index = 0;
+            int index;
 
             @Override public boolean hasNext() {
-                boolean result = false;
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                if (index < table.length) {
-                    while (table[index] == null && index < table.length - 1) {
-                        index++;
-                    }
-                    result = table[index] != null;
+                while (index < table.length && table[index] == null) {
+                    index++;
                 }
-                return result;
+                return index < table.length;
             }
 
             @Override public K next() {
-
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
