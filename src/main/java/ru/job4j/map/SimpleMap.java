@@ -17,11 +17,11 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        int bucket = key == null ? indexFor(0) : indexFor(hash(key.hashCode()));
-        boolean added = false;
         if (count >= capacity * LOAD_FACTOR) {
             expand();
         }
+        int bucket = key == null ? hash(0) : indexFor(hash(key.hashCode()));
+        boolean added = false;
         if (table[bucket] == null) {
             table[bucket] = new MapEntry<>(key, value);
             count++;
@@ -32,17 +32,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int hash(int hashCode) {
-        return hashCode ^ (hashCode >>> 16);
+        return hashCode == 0 ? 0 : hashCode ^ (hashCode >>> 16);
     }
 
     private int indexFor(int hash) {
         return hash & (capacity - 1);
     }
-
-    public int size() {
-        return count;
-    }
-
 
     @SuppressWarnings("unchecked")
     private void expand() {
@@ -52,9 +47,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
         for (MapEntry<K, V> e : oldTab) {
             if (e != null) {
                 if (e.key == null) {
-                    table[0] = new MapEntry<>(null, e.value);
+                    table[indexFor(hash(0))] = new MapEntry<>(null, e.value);
                 } else {
-                    table[indexFor(hash(e.key.hashCode()))] = e;
+                    table[indexFor(hash(e.key.hashCode()))] = new MapEntry<>(e.key, e.value);
                 }
             }
         }
@@ -63,17 +58,30 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         V value = null;
-        int bucket = key == null ? indexFor(hash(0)) : indexFor(hash(key.hashCode()));
-
-        if ((key == null) || (table[bucket] != null && table[bucket].key.equals(key))) {
+        int bucket;
+        if (key == null) {
+            bucket = indexFor(0);
+        } else {
+            bucket = indexFor(hash(key.hashCode()));
+        }
+        if (table[bucket] != null && table[bucket].key != null) {
+            if (key == null) {
+                if (table[bucket].key == null) {
+                    value = table[0].value;
+                } 
+            } else if (key.hashCode() == table[bucket].key.hashCode() && key.equals(table[bucket].key)) {
+                value = table[bucket].value;
+            }
+        } else if (key == null && table[bucket].value != null && table[bucket].key == null) {
             value = table[bucket].value;
         }
         return value;
     }
 
+
     @Override
     public boolean remove(K key) {
-        int bucket = key == null ? indexFor(hash(0)) : indexFor(hash(key.hashCode()));
+        int bucket = key == null ? hash(0) : indexFor(hash(key.hashCode()));
         boolean removed = false;
         if ((table[bucket] != null && key == null) || (table[bucket] != null && table[bucket].key.equals(key))) {
             table[bucket] = null;
@@ -91,28 +99,29 @@ public class SimpleMap<K, V> implements Map<K, V> {
             int index = 0;
 
             @Override public boolean hasNext() {
+                boolean result = false;
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                while (table[index] == null && index < table.length - 1) {
-                    index++;
+                if (index < table.length) {
+                    while (table[index] == null && index < table.length - 1) {
+                        index++;
+                    }
+                    result = table[index] != null;
                 }
-                return table[index] != null;
+                return result;
             }
 
             @Override public K next() {
-                
+
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                K key = table[index].key;
-                index++;
-                return key;
+                return table[index++].key;
             }
         };
     }
-
-
+    
     private static class MapEntry<K, V> {
 
         K key;
