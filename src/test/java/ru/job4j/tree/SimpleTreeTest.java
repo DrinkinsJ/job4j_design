@@ -35,7 +35,7 @@ public class SimpleTreeTest {
     }
     
     @Test
-    void whenIsBinary(){
+    void whenIsBinary() {
         Tree<Integer> tree = new SimpleTree<>(1);
         tree.add(16, 13);
         tree.add(16, 19);
@@ -47,7 +47,7 @@ public class SimpleTreeTest {
     }
 
     @Test
-    void whenIsNotBinary(){
+    void whenIsNotBinary() {
         Tree<Integer> tree = new SimpleTree<>(1);
         tree.add(1, 2);
         tree.add(1, 3);
