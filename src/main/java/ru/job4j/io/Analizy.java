@@ -23,7 +23,8 @@ public class Analizy {
                   }
                   if ((e[0].equals("200") || e[0].equals("300")) && !flag) {
                       flag = true;
-                      sb.append(e[1]).append(System.lineSeparator());
+                      sb.append(e[1])
+                        .append(System.lineSeparator());
                   }
               });
         } catch (IOException e) {
