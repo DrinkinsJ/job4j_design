@@ -9,7 +9,7 @@ class ConfigTest {
         String path = "data/noValue.properties";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("key1")).isEmpty();
+        assertThatThrownBy(() -> config.value("")).isInstanceOf(IllegalArgumentException.class).hasMessage("No value");
     }
     
     @Test 
@@ -17,7 +17,7 @@ class ConfigTest {
         String path = "data/noKey.properties";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("")).isEqualTo("value2");
+        assertThatThrownBy(() -> config.value("")).isInstanceOf(IllegalArgumentException.class).hasMessage("No value");
     }
     
     @Test 
@@ -25,7 +25,7 @@ class ConfigTest {
         String path = "data/noKeyNoValue.properties";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("")).isEmpty();
+        assertThatThrownBy(() -> config.value("")).isInstanceOf(IllegalArgumentException.class).hasMessage("No value");
     }
 
     @Test

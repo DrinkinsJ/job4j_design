@@ -2,7 +2,6 @@ package ru.job4j.io;
 
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Config {
 
@@ -27,8 +26,9 @@ public class Config {
             read.lines()
                 .filter(e -> e.contains("=") && !e.contains("#"))
                 .map(e -> e.split("=", 2))
-                .forEach(e -> values.put(e[0] != null ? e[0] : null, e[1] != null ? e[0] : null));
-        } catch (IOException | IllegalArgumentException e) {
+                .filter(e -> e[0].length() > 0 && e[1].length() > 0)
+                .forEach(e -> values.put(e[0], e[1]));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -51,5 +51,4 @@ public class Config {
         }
         return out.toString();
     }
-
 }
