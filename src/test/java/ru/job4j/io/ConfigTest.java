@@ -13,7 +13,7 @@ class ConfigTest {
     }
     
     @Test 
-    void whenPairWithCommentAndKeyEmpty(){
+    void whenPairWithCommentAndKeyEmpty() {
         String path = "data/noKey.properties";
         Config config = new Config(path);
         config.load();
@@ -21,7 +21,7 @@ class ConfigTest {
     }
     
     @Test 
-    void whenPairWithCommentAndKeyWithValueEmpty(){
+    void whenPairWithCommentAndKeyWithValueEmpty() {
         String path = "data/noKeyNoValue.properties";
         Config config = new Config(path);
         config.load();
@@ -29,7 +29,7 @@ class ConfigTest {
     }
 
     @Test
-    void whenPairWithCommentAndTwoSplitArguments(){
+    void whenPairWithCommentAndTwoSplitArguments() {
         String path = "data/moreOneValueRow.properties";
         Config config = new Config(path);
         config.load();

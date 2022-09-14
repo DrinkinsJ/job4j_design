@@ -12,15 +12,6 @@ public class Config {
         this.path = path;
     }
 
-    public static void main(String[] args) {
-        Config config = new Config("data/noKey.properties");
-        config.load();
-        for (Map.Entry<String, String> entry : config.values.entrySet()) {
-            System.out.println(entry);
-        }
-        System.out.println(config.value(""));
-    }
-
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines()
