@@ -1,6 +1,7 @@
 package ru.job4j.io;
 
 import java.io.*;
+import java.util.Objects;
 
 public class Analizy {
     boolean flag = true;
@@ -14,6 +15,7 @@ public class Analizy {
     public void unavailable(String source, String target) {
         try (BufferedReader in = new BufferedReader(new FileReader(source))) {
             in.lines()
+              .filter(e -> !e.isEmpty() && e.contains(" "))
               .map(e -> e.split(" ", 2))
               .forEach(e -> {
                   if ((e[0].equals("400") || e[0].equals("500")) && flag) {
