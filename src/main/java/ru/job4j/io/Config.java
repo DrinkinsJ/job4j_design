@@ -14,16 +14,17 @@ public class Config {
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            read.lines()
-                .filter(e -> e.contains("=") && !e.startsWith("#"))
+             read.lines()
+                .filter(line -> !line.isEmpty() && !line.startsWith("#"))
                 .map(e -> e.split("=", 2))
                 .forEach(e -> {
-                    if (e[0].length() < 1 || e[1].length() < 1) {
-                        throw new IllegalArgumentException("No value");
+                    if (e.length == 2 && (!e[0].isBlank() && !e[1].isBlank())) {
+                        values.put(e[0], e[1]);
+                    } else {
+                        throw new IllegalArgumentException(Arrays.toString(e));
                     }
-                    values.put(e[0], e[1]);
                 });
-        } catch (IOException e) {
+        } catch (IOException | IllegalArgumentException e) {
             e.printStackTrace();
         }
     }
