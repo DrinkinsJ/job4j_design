@@ -1,11 +1,14 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.Objects;
+import java.util.*;
 
 public class Analizy {
-    boolean flag = true;
-    StringBuilder sb = new StringBuilder();
+    private boolean flag = true;
+    private final StringBuilder sb = new StringBuilder();
+    private final List<String> offStatus = Arrays.asList("400", "500");
+    private final List<String> onStatus = Arrays.asList("200", "300");
+
 
     public static void main(String[] args) {
         Analizy analizy = new Analizy();
@@ -18,15 +21,13 @@ public class Analizy {
               .filter(e -> !e.isEmpty() && e.contains(" "))
               .map(e -> e.split(" ", 2))
               .forEach(e -> {
-                  if ((e[0].equals("400") || e[0].equals("500")) && flag) {
+                  if (offStatus.contains(e[0]) && flag) {
                       flag = false;
-                      sb.append(e[1])
-                        .append(";");
+                      sb.append(e[1]).append(";");
                   }
-                  if ((e[0].equals("200") || e[0].equals("300")) && !flag) {
+                  if (onStatus.contains(e[0]) && !flag) {
                       flag = true;
-                      sb.append(e[1])
-                        .append(System.lineSeparator());
+                      sb.append(e[1]).append(System.lineSeparator());
                   }
               });
         } catch (IOException e) {
