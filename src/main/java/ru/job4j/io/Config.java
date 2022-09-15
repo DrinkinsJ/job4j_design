@@ -14,17 +14,13 @@ public class Config {
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-             read.lines()
+            read.lines()
+                .map(String::trim)
                 .filter(line -> !line.isEmpty() && !line.startsWith("#"))
+                .filter(this::validate)
                 .map(e -> e.split("=", 2))
-                .forEach(e -> {
-                    if (e.length == 2 && (!e[0].isBlank() && !e[1].isBlank())) {
-                        values.put(e[0], e[1]);
-                    } else {
-                        throw new IllegalArgumentException(Arrays.toString(e));
-                    }
-                });
-        } catch (IOException | IllegalArgumentException e) {
+                .forEach(e -> values.put(e[0], e[1]));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -32,8 +28,15 @@ public class Config {
     public String value(String key) {
         if (!values.containsKey(key)) {
             throw new IllegalArgumentException("No value");
-        } 
+        }
         return values.get(key);
+    }
+
+    private boolean validate(String line) {
+        if (!line.contains("=") || (line.startsWith("=") || line.endsWith("="))) {
+            throw new IllegalArgumentException(String.format("error line %s", line));
+        }
+        return true;
     }
 
     @Override
