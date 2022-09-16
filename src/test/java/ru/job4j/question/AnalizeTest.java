@@ -7,6 +7,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class AnalizeTest {
 
     @Test
+    @SuppressWarnings("unchecked")
     void whenNotChanged() {
         User u1 = new User(1, "A");
         User u2 = new User(2, "B");
