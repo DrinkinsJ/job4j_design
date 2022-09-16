@@ -2,9 +2,16 @@ package ru.job4j.io.duplicates;
 
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.List;
 
 public class DuplicatesFinder {
     public static void main(String[] args) throws IOException {
-        Files.walkFileTree(Path.of("./"), new DuplicatesVisitor());
+        findDuplicates(Path.of("./")).forEach(System.out::println);
+    }
+
+    public static List<FileProperty> findDuplicates(Path root) throws IOException {
+        DuplicatesVisitor duplicatesVisitor = new DuplicatesVisitor();
+        Files.walkFileTree(root, duplicatesVisitor);
+        return duplicatesVisitor.getDuplicates();
     }
 }

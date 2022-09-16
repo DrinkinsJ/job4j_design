@@ -8,15 +8,17 @@ import java.util.*;
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     private final Set<FileProperty> fileProperties = new HashSet<>();
 
+    public List<FileProperty> getDuplicates() {
+        return duplicates;
+    }
+
+    private final List<FileProperty> duplicates = new ArrayList<>(); 
+
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        FileProperty currentFile = new FileProperty(file.toFile()
-                                                        .getTotalSpace(), file.getFileName()
-                                                                              .toString());
-        if (fileProperties.contains(currentFile)) {
-            System.out.println(currentFile.getName());
-        } else {
-            fileProperties.add(currentFile);
+        FileProperty currentFile = new FileProperty(file.toFile().getTotalSpace(), file.getFileName().toString());
+        if (!fileProperties.add(currentFile)) {
+            duplicates.add(currentFile);
         }
         return super.visitFile(file, attrs);
     }
