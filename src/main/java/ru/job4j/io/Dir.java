@@ -5,19 +5,19 @@ import java.util.Objects;
 
 public class Dir {
     public static void main(String[] args) {
-        File file = new File("c:\\projects");
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
+        }
+        File file = new File(args[0]);
         if (!file.exists()) {
             throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsoluteFile()));
         }
         if (!file.isDirectory()) {
             throw new IllegalArgumentException(String.format("Not directory %s", file.getAbsoluteFile()));
         }
-        long totalSize = 0L;
-        for (File subfile : Objects.requireNonNull(file.listFiles())) {
-            totalSize += subfile.length();
-            long d = subfile.length();
-            System.out.printf("file name: %s, size: %d byte%n", subfile.getName(), d);
+        System.out.println(String.format("size : %s", file.getTotalSpace()));
+        for (File subfile : file.listFiles()) {
+            System.out.println(subfile.getName());
         }
-        System.out.printf("File: %s, size : %s, byte%n", file.getName(), totalSize);
     }
 }
