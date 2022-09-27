@@ -37,7 +37,7 @@ class ArgsNameTest {
     }
     
     @Test
-    void whenKeyNotExist(){
+    void whenKeyNotExist() {
         assertThatThrownBy(() -> ArgsName.of(new String[] {"-=512"})).isInstanceOf(IllegalArgumentException.class);
     }
     
