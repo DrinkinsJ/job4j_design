@@ -30,7 +30,7 @@ public class ArgsName {
         if (!s.startsWith("-") || s.startsWith("-=") || !s.contains("=")) {
             throw new IllegalArgumentException(String.format("error param %s", s));
         }
-        if (s.indexOf("=") == s.lastIndexOf("=") && s.endsWith("=")) {
+        if (s.indexOf("=") == s.length() - 1) {
             throw new IllegalArgumentException(String.format("error param %s", s));
         }
         return true;
