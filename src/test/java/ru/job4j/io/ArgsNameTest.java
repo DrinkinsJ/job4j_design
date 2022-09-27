@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ArgsNameTest {
     @Test
@@ -35,5 +34,25 @@ class ArgsNameTest {
     void whenWrongSomeArgument() {
         assertThatThrownBy(() -> ArgsName.of(new String[]{}))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+    
+    @Test
+    void whenKeyNotExist(){
+        assertThatThrownBy(() -> ArgsName.of(new String[] {"-=512"})).isInstanceOf(IllegalArgumentException.class);
+    }
+    
+    @Test
+    void  whenValueNotExist() {
+        assertThatThrownBy(() -> ArgsName.of(new String[] {"-Xmx="})).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void  whenNoStartParamSymbol() {
+        assertThatThrownBy(() -> ArgsName.of(new String[] {"Xmx=512"})).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void  whenNoSeparatorSymbol() {
+        assertThatThrownBy(() -> ArgsName.of(new String[] {"-Xmx 512"})).isInstanceOf(IllegalArgumentException.class);
     }
 }

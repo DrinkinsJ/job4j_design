@@ -1,8 +1,6 @@
 package ru.job4j.io;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ArgsName {
 
@@ -25,12 +23,15 @@ public class ArgsName {
                 .map(String::trim)
                 .filter(this::validate)
                 .map(e -> e.split("=", 2))
-                .forEach(e -> values.put(e[0].substring(1), e[1]));
+                .forEach(e -> values.put(Objects.requireNonNull(e[0].substring(1)), Objects.requireNonNull(e[1])));
     }
 
-    private boolean validate(String param) {
-        if (!param.startsWith("-") && !param.contains("=") && !param.contains("-=")) {
-            throw new IllegalArgumentException(String.format("error param %s", param));
+    private boolean validate(String s) {
+        if (!s.startsWith("-") || s.startsWith("-=") || !s.contains("=")) {
+            throw new IllegalArgumentException(String.format("error param %s", s));
+        }
+        if (s.indexOf("=") == s.lastIndexOf("=") && s.endsWith("=")) {
+            throw new IllegalArgumentException(String.format("error param %s", s));
         }
         return true;
     }
