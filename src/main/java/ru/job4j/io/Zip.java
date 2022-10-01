@@ -1,60 +1,41 @@
 package ru.job4j.io;
 
-import ru.job4j.io.search.*;
+import ru.job4j.io.search.Search;
 
 import java.io.*;
 import java.nio.file.*;
-import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import java.util.*;
+import java.util.zip.*;
 
 public class Zip {
-    
-    private String directory;
-    private String output;
-    private String exclude;
-    private Path target;
-    private List<Path> sources;
 
-
-    public Zip(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
+        List<Path> sources;
         if (args.length != 3) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Enter right arguments");
         }
         ArgsName argsName = ArgsName.of(args);
-        this.directory = argsName.get("d");
-        this.output = argsName.get("o");
-        this.exclude = argsName.get("e");
-        Path start = Paths.get(directory);
-        Search.search(start, p -> p.toFile().getName().contains(exclude)).forEach(e -> sources.add(e));
-        System.out.println(sources.toString());
-    }
-
-    public Zip() {
+        File output = new File(argsName.get("o"));
+        Path path = Paths.get(argsName.get("d"));
+        sources = new ArrayList<>(Search.search(path, p -> !p.toFile()
+                                                             .getName()
+                                                             .endsWith(argsName.get("e"))));
+        Zip zip = new Zip();
+        zip.packFiles(sources, output);
     }
 
     public void packFiles(List<Path> sources, File target) throws IOException {
-        
-    }
-
-    public void packSingleFile(File source, File target) {
-        try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
-            zip.putNextEntry(new ZipEntry(source.getPath()));
-            try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(source))) {
-                zip.write(out.readAllBytes());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        List<File> files = new ArrayList<>();
+        for (Path path : sources) {
+            files.add(path.toFile());
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-        Zip zip = new Zip();
-        zip.packSingleFile(
-                new File("./pom.xml"),
-                new File("./pom.zip")
-        );
-        Zip zip2 = new Zip(args);
-        System.out.println(zip2.sources.toString());
+        try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
+            for (File file : files) {
+                zip.putNextEntry(new ZipEntry(file.getPath()));
+                try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(file))) {
+                    zip.write(out.readAllBytes());
+                }
+            }
+        }
     }
 }
