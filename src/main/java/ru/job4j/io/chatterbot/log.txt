@@ -1,0 +1,15 @@
+User: Привет
+Bot: Пока
+User: Как пока
+Bot: Byu
+User: стоп
+User: Как дела бот?
+User: 
+User: продолжить
+User: а?
+Bot: How are you?
+User: стоп
+User: продолжить
+User: а?
+Bot: Как дела?
+User: закончить
