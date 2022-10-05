@@ -34,7 +34,7 @@ public class CSVReader {
         source = argsName.get("path");
         delimiter = argsName.get("delimiter");
         filter = List.of(argsName.get("filter").split(","));
-        if (stdout.equals("stdout")) {
+        if ("stdout".equals(stdout)) {
             System.out.print(csvReader.csvToList());
         } else {
             csvReader.resultFile(csvReader.csvToList());
@@ -84,7 +84,7 @@ public class CSVReader {
         if (argsName.get("delimiter").isEmpty()) {
             throw new IllegalArgumentException("Delimiter cant be empty");
         }
-        if (!argsName.get("out").equals("stdout") && !argsName.get("path").endsWith(".csv")) {
+        if (!"stdout".equals(argsName.get("out")) && !argsName.get("path").endsWith(".csv")) {
             throw new IllegalArgumentException("Out param can be path or stdout");
         }
         if (argsName.get("filter").isEmpty()) {
