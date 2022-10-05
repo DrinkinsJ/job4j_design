@@ -48,9 +48,10 @@ public class CSVReader {
             while (scanner.hasNextLine()) {
                 List<String> str = List.of(scanner.nextLine().split(delimiter));
                 for (Integer index : indexes) {
-                    sb.append(str.get(index)).append(delimiter);
+                        sb.append(str.get(index)).append(delimiter);
+                } if (sb.length() > 0) {
+                    sb.deleteCharAt(sb.length() - 1).append(LS);
                 }
-                sb.deleteCharAt(sb.length() - 1).append(LS);
             }
         }
         return sb;
