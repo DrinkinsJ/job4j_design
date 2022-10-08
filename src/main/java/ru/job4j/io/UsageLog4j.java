@@ -14,16 +14,16 @@ public class UsageLog4j {
         LOG.warn("warn message");
         LOG.error("error message");
 
-        String firstname = "Igor";
-        String surname = "Dorokhin";
-        String patronymic = "Vitalevich";
-        int weigh = 66;
-        int height = 180;
-        int age = 29;
-        String eyeColor = "brown";
-        String hairColor = "brown";
-        LOG.debug("User info firstname : {}, surname : {} patronymic : {}, weigh : {}, height : {}, age : {},"
-                        + " eyeColor : {}, hairColor : {},",
-                firstname, surname, patronymic, weigh, height, age, eyeColor, hairColor);
+        byte a = 8;
+        short b = 32;
+        int c = 64;
+        long d = 66;
+        float e = 180.0f;
+        double f = 29.0d;
+        boolean g = true;
+        char h = 'h';
+        LOG.debug("Primitive type info a : {}, b : {} c : {}, d : {}, e : {}, f : {},"
+                        + " g : {}, h : {},",
+                a, b, c, d, e, f, g, h);
     }
 }
