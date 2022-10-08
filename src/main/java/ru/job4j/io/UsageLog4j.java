@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 
 public class UsageLog4j {
 
@@ -14,5 +13,17 @@ public class UsageLog4j {
         LOG.info("info message");
         LOG.warn("warn message");
         LOG.error("error message");
+
+        String firstname = "Igor";
+        String surname = "Dorokhin";
+        String patronymic = "Vitalevich";
+        int weigh = 66;
+        int height = 180;
+        int age = 29;
+        String eyeColor = "brown";
+        String hairColor = "brown";
+        LOG.debug("User info firstname : {}, surname : {} patronymic : {}, weigh : {}, height : {}, age : {},"
+                        + " eyeColor : {}, hairColor : {},",
+                firstname, surname, patronymic, weigh, height, age, eyeColor, hairColor);
     }
 }
