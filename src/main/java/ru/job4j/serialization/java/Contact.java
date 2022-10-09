@@ -7,6 +7,8 @@ public class Contact implements Serializable {
     @Serial private static final long serialVersionUID = -158623476271041227L;
     private final int zipCode;
     private final String phone;
+    
+    
 
     public Contact(int zipCode, String phone) {
         this.zipCode = zipCode;
