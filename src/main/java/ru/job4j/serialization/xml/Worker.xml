@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<worker isActive="false" salary="35">
+    <contact phone="+7(926)323-45-65" zipCode="654321"/>
+    <skills>
+        <status>Java</status>
+        <status>io</status>
+        <status>serialization</status>
+    </skills>
+</worker>
