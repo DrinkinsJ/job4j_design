@@ -8,8 +8,6 @@ public class Contact implements Serializable {
     private final int zipCode;
     private final String phone;
     
-    
-
     public Contact(int zipCode, String phone) {
         this.zipCode = zipCode;
         this.phone = phone;
