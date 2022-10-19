@@ -17,6 +17,22 @@ public class Worker {
         this.skills = skills;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public String[] getSkills() {
+        return skills;
+    }
+
     @Override public String toString() {
         return "Worker{" 
                 + "isActive=" + isActive 

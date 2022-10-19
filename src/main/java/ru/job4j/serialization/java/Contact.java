@@ -13,6 +13,14 @@ public class Contact implements Serializable {
         this.phone = phone;
     }
 
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     @Override
     public String toString() {
         return "Contact{" 
