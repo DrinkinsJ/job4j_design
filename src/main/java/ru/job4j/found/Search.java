@@ -16,6 +16,7 @@ import java.util.regex.PatternSyntaxException;
 public class Search {
     private static String type;
     private static String name;
+    private String tips = "Program can scan dir with key: -d ";
 
     public static void main(String[] args) throws IOException {
         if (args.length != 4) {
