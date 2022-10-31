@@ -45,6 +45,9 @@ values ('Milka', 4, date '2022-08-16', 82);
 
 SELECT * FROM product p JOIN type t ON p.type_id = t.id WHERE t.name LIKE  'СЫР';
 SELECT * FROM product WHERE name LIKE '%Мороженое%';
+
+SELECT * FROM product p WHERE expired_date < NOW();
+
 SELECT * FROM product WHERE price = (SELECT MAX(price) FROM product);
 
 SELECT t.name имя_типа, COUNT(type_id) количество FROM product p
