@@ -11,7 +11,8 @@ CREATE TABLE book(
 id SERIAL PRIMARY KEY,
 book_name VARCHAR(255),
 genre VARCHAR(255),
-author_id int REFERENCES author(id)
+author_id int,
+FOREIGN KEY (author_id) REFERENCES author(id)
 );
 
 INSERT INTO author(first_name, last_name, country) VALUES ('GREG', 'GREEN', 'US');
