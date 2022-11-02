@@ -26,9 +26,9 @@ INSERT INTO book(book_name, genre, author_id) VALUES ('dune', 'fiction', 1);
 INSERT INTO book(book_name, genre, author_id) VALUES ('ODESY', 'adventure', 2);
 
 SELECT book_name AS "Название Книги", first_name Имя , last_name Фамилия 
-FROM book AS b JOIN author as a ON a.id = b.id;
+FROM book AS b JOIN author as a ON a.id = b.author_id;
 
 SELECT book_name Название_книги, country Страна
-FROM book b JOIN author a ON a.id = b.id;
+FROM book b JOIN author a ON a.id = b.author_id;
 
-SELECT * FROM book b JOIN author a ON a.id = b.id;
+SELECT * FROM book b JOIN author a ON a.id = b.author_id;
