@@ -25,6 +25,6 @@ create or replace procedure p_delete_data(i_count integer)
 language 'plpgsql'
 as $$
     BEGIN
-    DELETE FROM products WHERE count < 5;
+    DELETE FROM products WHERE count < i_count;
     END
 $$;
