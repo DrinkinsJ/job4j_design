@@ -12,7 +12,7 @@ public class ConnectionDemo {
         Config config = new Config("src/main/resources/app.properties");
         config.load();
         Class.forName(config.value("driver"));
-        String url = "jdbc:postgresql://localhost:5432/" + config.value("db");
+        String url = config.value("db");
         String login = config.value("login");
         String password = config.value("password");
         try (Connection connection = DriverManager.getConnection(url, login, password)) {
