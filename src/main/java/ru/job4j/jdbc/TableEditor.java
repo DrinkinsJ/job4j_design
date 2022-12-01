@@ -25,11 +25,11 @@ public class TableEditor implements AutoCloseable {
             tableEditor.createTable("students");
             System.out.println(getTableScheme(tableEditor.connection, "students"));
             tableEditor.addColumn("students", "firstName", "varchar(255)");
-            System.out.println(getTableScheme(tableEditor.connection,"students"));
+            System.out.println(getTableScheme(tableEditor.connection, "students"));
             tableEditor.renameColumn("students", "firstName", "lastName");
-            System.out.println(getTableScheme(tableEditor.connection,"students"));
+            System.out.println(getTableScheme(tableEditor.connection, "students"));
             tableEditor.dropColumn("students", "lastName");
-            System.out.println(getTableScheme(tableEditor.connection,"students"));
+            System.out.println(getTableScheme(tableEditor.connection, "students"));
             tableEditor.dropTable("students");
         }
     }
