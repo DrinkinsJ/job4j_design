@@ -40,8 +40,8 @@ public class ImportDB {
         return users;
     }
 
-    private User addUser(String[] userData){
-        if(userData[0].isBlank() || userData[1].isBlank()){
+    private User addUser(String[] userData) {
+        if (userData[0].isBlank() || userData[1].isBlank()) {
             throw new IllegalArgumentException("Data cant be empty");
         }
         return new User(userData[0], userData[1]);

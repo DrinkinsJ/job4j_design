@@ -52,7 +52,7 @@ public class SqlTracker implements Store {
             preparedStatement.setTimestamp(2, Timestamp.valueOf(item.getLocalDateTime()));
             preparedStatement.execute();
             try (ResultSet resultSet = preparedStatement.getResultSet()) {
-                if (resultSet.next()){
+                if (resultSet.next()) {
                     item.setId(resultSet.getInt(1));
                 }
             }
