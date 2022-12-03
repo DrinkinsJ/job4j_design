@@ -35,10 +35,19 @@ public class ImportDB {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().map(String::trim).filter(this::validate).map(e -> e.split(";", 2))
-                    .forEach(e -> users.add(new User(e[0], e[1])));
+                    .forEach(this::addUser);
         }
         return users;
     }
+
+    private User addUser(String[] userData){
+        if(userData[0].isBlank() && userData[1].isBlank()){
+            throw new IllegalArgumentException("Data cant be empty");
+        }
+        return new User(userData[0], userData[1]);
+
+    }
+
 
     private boolean validate(String s) {
         if (!s.contains(";")) {
