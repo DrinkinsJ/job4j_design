@@ -7,6 +7,8 @@ import ru.job4j.tracker.input.ValidateInput;
 import ru.job4j.tracker.store.SqlTracker;
 import ru.job4j.tracker.store.Store;
 
+import java.sql.SQLException;
+
 public class StartUI {
 
     public void init(Input input, Store tracker, UserAction[] actions) {
@@ -31,15 +33,19 @@ public class StartUI {
                 new ConsoleInput()
         );
         Store tracker = new SqlTracker();
-        UserAction[] actions = {
-                new CreateAction(),
-                new ReplaceAction(),
-                new DeleteAction(),
-                new FindAllAction(),
-                new FindByIdAction(),
-                new FindByNameAction(),
-                new ExitAction()
-        };
-        new StartUI().init(validate, tracker, actions);
+        try {
+            UserAction[] actions = {
+                    new CreateAction(),
+                    new ReplaceAction(),
+                    new DeleteAction(),
+                    new FindAllAction(),
+                    new FindByIdAction(),
+                    new FindByNameAction(),
+                    new ExitAction()
+            };
+            new StartUI().init(validate, tracker, actions);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

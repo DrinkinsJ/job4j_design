@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -45,20 +44,18 @@ public class SqlTracker implements Store {
         }
     }
 
-    private Timestamp setDateTime() {
-        long millis = System.currentTimeMillis();
-        Timestamp timestamp = new Timestamp(millis);
-        LocalDateTime localDateTime = timestamp.toLocalDateTime();
-        return Timestamp.valueOf(localDateTime);
-    }
-
     @Override
     public Item add(Item item) {
         try (PreparedStatement preparedStatement = cn.prepareStatement(
                 "insert into items (name, created) values (?, ?);")) {
             preparedStatement.setString(1, item.getName());
-            preparedStatement.setTimestamp(2, setDateTime());
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(item.getLocalDateTime()));
             preparedStatement.execute();
+            try (ResultSet resultSet = preparedStatement.getResultSet()) {
+                if (resultSet.next()){
+                    item.setId(resultSet.getInt(1));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -71,7 +68,7 @@ public class SqlTracker implements Store {
         try (PreparedStatement preparedStatement = cn.prepareStatement(
                 "update items set name = ?, created = ? where id = ?;")) {
             preparedStatement.setString(1, item.getName());
-            preparedStatement.setTimestamp(2, setDateTime());
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(item.getLocalDateTime()));
             preparedStatement.setInt(3, id);
             replaced = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -100,10 +97,7 @@ public class SqlTracker implements Store {
                 "select * from items")) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    items.add(new Item(
-                            resultSet.getInt("id"),
-                            resultSet.getString("name"),
-                            resultSet.getTimestamp("created").toLocalDateTime()));
+                    items.add(setItem(resultSet));
                 }
             }
         } catch (SQLException e) {

@@ -41,6 +41,10 @@ public class Item {
         this.name = name;
     }
 
+    public LocalDateTime getLocalDateTime() {
+        return created;
+    }
+
     @Override
     public String toString() {
         return String.format("id: %s, name: %s, created: %s", id, name, FORMATTER.format(created));
