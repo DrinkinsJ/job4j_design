@@ -32,8 +32,7 @@ public class StartUI {
         Input validate = new ValidateInput(
                 new ConsoleInput()
         );
-        Store tracker = new SqlTracker();
-        try {
+       try (Store tracker = new SqlTracker()) {
             UserAction[] actions = {
                     new CreateAction(),
                     new ReplaceAction(),
