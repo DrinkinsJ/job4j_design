@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,10 @@ public class SqlTracker implements Store {
 
     public SqlTracker() {
         init();
+    }
+
+    public SqlTracker(Connection cn) {
+        this.cn = cn;
     }
 
     private void init() {
@@ -47,13 +52,13 @@ public class SqlTracker implements Store {
     @Override
     public Item add(Item item) {
         try (PreparedStatement preparedStatement = cn.prepareStatement(
-                "insert into items (name, created) values (?, ?);")) {
+                "insert into items (name, created) values (?, ?);",  Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, item.getName());
             preparedStatement.setTimestamp(2, Timestamp.valueOf(item.getLocalDateTime()));
             preparedStatement.execute();
-            try (ResultSet resultSet = preparedStatement.getResultSet()) {
-                if (resultSet.next()) {
-                    item.setId(resultSet.getInt(1));
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    item.setId(generatedKeys.getInt(1));
                 }
             }
         } catch (SQLException e) {
