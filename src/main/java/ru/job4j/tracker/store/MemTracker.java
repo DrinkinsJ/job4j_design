@@ -71,6 +71,6 @@ public class MemTracker implements Store {
 
     @Override
     public void close() {
-        throw  new UnsupportedOperationException("UOE");
+        System.out.println("Tracker stopped");
     }
 }
