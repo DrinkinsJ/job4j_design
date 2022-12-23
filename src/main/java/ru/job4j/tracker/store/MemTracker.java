@@ -8,9 +8,11 @@ public class MemTracker implements Store {
 
     private final List<Item> items = new ArrayList<>();
 
+    private int id = 0;
+
     @Override
     public Item add(Item item) {
-        item.setId(items.size() + 1);
+        item.setId(id++);
         items.add(item);
         return item;
     }
@@ -26,7 +28,6 @@ public class MemTracker implements Store {
         return index != -1 ? items.get(index) : null;
     }
 
-    @Override
     public List<Item> findByName(String name) {
         List<Item> result = new ArrayList<>();
         for (Item item : items) {
@@ -37,7 +38,6 @@ public class MemTracker implements Store {
         return result;
     }
 
-    @Override
     public boolean replace(int id, Item item) {
         int index = indexOf(id);
         if (index == -1) {
@@ -48,7 +48,6 @@ public class MemTracker implements Store {
         return true;
     }
 
-    @Override
     public boolean delete(int id) {
         int index = indexOf(id);
         if (index == -1) {
@@ -69,7 +68,6 @@ public class MemTracker implements Store {
         return index;
     }
 
-    @Override
     public void close() {
         System.out.println("Tracker stopped");
     }

@@ -16,9 +16,9 @@ public class DeleteMassAction implements UserAction {
 
     @Override
     public boolean execute(Input input, Store tracker) {
-        List<Item> items = new ArrayList<>(tracker.findAll());
-        for (Item item : items) {
-            tracker.delete(item.getId());
+        List<Item> items = tracker.findAll();
+        for (int i = 0; i < items.size(); i++) {
+            tracker.delete(i);
         }
         System.out.println("Items is successfully deleted!");
         return true;
