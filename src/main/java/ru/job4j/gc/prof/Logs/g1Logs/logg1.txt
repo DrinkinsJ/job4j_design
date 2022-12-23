@@ -1,0 +1,26 @@
+[0.005s][info][gc] Using G1
+[16.899s][info][gc] GC(0) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 3.363ms
+[16.903s][info][gc] GC(1) Pause Young (Normal) (G1 Evacuation Pause) 5M->4M(12M) 1.754ms
+[16.906s][info][gc] GC(2) Pause Young (Normal) (G1 Evacuation Pause) 5M->4M(12M) 0.695ms
+[16.913s][info][gc] GC(3) Pause Young (Normal) (G1 Evacuation Pause) 5M->4M(12M) 0.429ms
+[16.921s][info][gc] GC(4) Pause Young (Normal) (G1 Evacuation Pause) 5M->4M(12M) 0.439ms
+[16.930s][info][gc] GC(5) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 0.574ms
+[16.935s][info][gc] GC(6) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 0.577ms
+[16.938s][info][gc] GC(7) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 0.528ms
+[16.945s][info][gc] GC(8) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 0.524ms
+[16.949s][info][gc] GC(9) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 0.374ms
+[16.951s][info][gc] GC(10) Pause Young (Normal) (G1 Evacuation Pause) 6M->4M(12M) 0.524ms
+[16.954s][info][gc] GC(11) Pause Young (Normal) (G1 Evacuation Pause) 6M->5M(12M) 0.356ms
+[16.957s][info][gc] GC(12) Pause Young (Normal) (G1 Evacuation Pause) 7M->5M(12M) 0.340ms
+[16.959s][info][gc] GC(13) Pause Young (Normal) (G1 Evacuation Pause) 7M->5M(12M) 0.310ms
+[16.962s][info][gc] GC(14) Pause Young (Normal) (G1 Evacuation Pause) 7M->5M(12M) 0.366ms
+[16.965s][info][gc] GC(15) Pause Young (Normal) (G1 Evacuation Pause) 7M->5M(12M) 0.475ms
+[16.966s][info][gc] GC(16) Pause Young (Concurrent Start) (G1 Humongous Allocation) 5M->5M(12M) 0.461ms
+[16.966s][info][gc] GC(17) Concurrent Undo Cycle
+[16.966s][info][gc] GC(17) Concurrent Undo Cycle 0.074ms
+[52.310s][info][gc] GC(18) Pause Young (Concurrent Start) (G1 Humongous Allocation) 6M->3M(12M) 0.474ms
+[52.310s][info][gc] GC(19) Concurrent Undo Cycle
+[52.310s][info][gc] GC(19) Concurrent Undo Cycle 0.048ms
+[56.612s][info][gc] GC(20) Pause Young (Concurrent Start) (G1 Humongous Allocation) 4M->3M(12M) 0.358ms
+[56.612s][info][gc] GC(21) Concurrent Undo Cycle
+[56.612s][info][gc] GC(21) Concurrent Undo Cycle 0.045ms
