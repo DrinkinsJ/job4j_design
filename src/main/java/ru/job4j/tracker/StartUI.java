@@ -33,7 +33,8 @@ public class StartUI {
         Input validate = new ValidateInput(
                 new ConsoleInput()
         );
-       try (Store tracker = new MemTracker()) {
+        Store tracker = new MemTracker();
+       try {
             UserAction[] actions = {
                     new CreateAction(),
                     new ReplaceAction(),
