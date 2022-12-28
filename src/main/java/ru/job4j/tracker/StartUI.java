@@ -5,10 +5,7 @@ import ru.job4j.tracker.input.ConsoleInput;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.input.ValidateInput;
 import ru.job4j.tracker.store.MemTracker;
-import ru.job4j.tracker.store.SqlTracker;
 import ru.job4j.tracker.store.Store;
-
-import java.sql.SQLException;
 
 public class StartUI {
 
@@ -33,8 +30,7 @@ public class StartUI {
         Input validate = new ValidateInput(
                 new ConsoleInput()
         );
-        Store tracker = new MemTracker();
-       try {
+       try (Store tracker = new MemTracker()) {
             UserAction[] actions = {
                     new CreateAction(),
                     new ReplaceAction(),
@@ -42,8 +38,8 @@ public class StartUI {
                     new FindAllAction(),
                     new FindByIdAction(),
                     new FindByNameAction(),
-                    new AddMassAction(),
-                    new DeleteMassAction(),
+                    new CreateManyItems(),
+                    new DeleteAllItems(),
                     new ExitAction()
             };
             new StartUI().init(validate, tracker, actions);

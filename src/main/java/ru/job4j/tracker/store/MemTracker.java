@@ -19,7 +19,7 @@ public class MemTracker implements Store {
 
     @Override
     public List<Item> findAll() {
-        return items;
+        return new ArrayList<>(items);
     }
 
     @Override
