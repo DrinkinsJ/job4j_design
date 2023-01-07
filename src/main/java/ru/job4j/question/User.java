@@ -28,7 +28,8 @@ public class User {
         this.name = name;
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -39,7 +40,8 @@ public class User {
         return id == user.id && name.equals(user.name);
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         return Objects.hash(id, name);
     }
 }

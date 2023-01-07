@@ -34,11 +34,11 @@ public class Worker {
     }
 
     @Override public String toString() {
-        return "Worker{" 
-                + "isActive=" + isActive 
-                + ", salary=" + salary 
-                + ", contact=" + contact 
-                + ", skills=" + Arrays.toString(skills) 
+        return "Worker{"
+                + "isActive=" + isActive
+                + ", salary=" + salary
+                + ", contact=" + contact
+                + ", skills=" + Arrays.toString(skills)
                 + '}';
     }
 }

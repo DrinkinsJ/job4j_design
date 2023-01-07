@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface Generate  {
+public interface Generate {
 
     void generate();
 

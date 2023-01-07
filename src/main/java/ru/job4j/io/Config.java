@@ -1,7 +1,11 @@
 package ru.job4j.io;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringJoiner;
 
 public class Config {
 
@@ -15,11 +19,11 @@ public class Config {
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines()
-                .map(String::trim)
-                .filter(line -> !line.isEmpty() && !line.startsWith("#"))
-                .filter(this::validate)
-                .map(e -> e.split("=", 2))
-                .forEach(e -> values.put(e[0], e[1]));
+                    .map(String::trim)
+                    .filter(line -> !line.isEmpty() && !line.startsWith("#"))
+                    .filter(this::validate)
+                    .map(e -> e.split("=", 2))
+                    .forEach(e -> values.put(e[0], e[1]));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,7 +48,7 @@ public class Config {
         StringJoiner out = new StringJoiner(System.lineSeparator());
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines()
-                .forEach(out::add);
+                    .forEach(out::add);
         } catch (IOException e) {
             e.printStackTrace();
         }

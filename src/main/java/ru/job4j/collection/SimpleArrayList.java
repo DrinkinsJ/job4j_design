@@ -1,18 +1,22 @@
 package ru.job4j.collection;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class SimpleArrayList<T> implements SimpleList<T> {
 
     private static final Object[] EMPTY_CONTAINER = {};
     private static final int DEFAULT_CAPACITY = 10;
-    
+
     private T[] container;
 
     private int size;
 
     private int modCount;
-    
+
     @SuppressWarnings("unchecked")
     public SimpleArrayList(int capacity) {
         if (capacity > 0) {
@@ -39,7 +43,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     private Object[] grow() {
         return grow(size + 1);
     }
-    
+
     @SuppressWarnings("unchecked")
     private Object[] grow(int minCapacity) {
         int oldCapacity = container.length;
@@ -87,11 +91,12 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         return size;
     }
 
-    @Override public String toString() {
-        return "SimpleArrayList{" 
-                + "container=" + Arrays.toString(container) 
-                + ", size=" + size 
-                + ", modCount=" + modCount 
+    @Override
+    public String toString() {
+        return "SimpleArrayList{"
+                + "container=" + Arrays.toString(container)
+                + ", size=" + size
+                + ", modCount=" + modCount
                 + '}';
     }
 
@@ -99,8 +104,8 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
 
-            private int cursor = 0;
             private final int expectedModCount = modCount;
+            private int cursor = 0;
 
             public final void checkForComodification() {
                 if (modCount != expectedModCount) {

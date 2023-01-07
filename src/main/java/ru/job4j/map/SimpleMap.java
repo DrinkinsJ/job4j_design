@@ -1,6 +1,9 @@
 package ru.job4j.map;
 
-import java.util.*;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class SimpleMap<K, V> implements Map<K, V> {
 
@@ -46,7 +49,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
         table = new MapEntry[capacity];
         for (MapEntry<K, V> e : oldTab) {
             if (e != null) {
-                    table[indexFor(hash(Objects.hashCode(e.key)))] = e;
+                table[indexFor(hash(Objects.hashCode(e.key)))] = e;
             }
         }
     }
@@ -56,14 +59,13 @@ public class SimpleMap<K, V> implements Map<K, V> {
         V value = null;
         int bucket = indexFor(hash(Objects.hashCode(key)));
         if (table[bucket] != null) {
-            if (Objects.hashCode(key) == Objects.hashCode(table[bucket].key) 
+            if (Objects.hashCode(key) == Objects.hashCode(table[bucket].key)
                     && Objects.equals(key, table[bucket].key)) {
                 value = table[bucket].value;
             }
         }
         return value;
     }
-
 
     @Override
     public boolean remove(K key) {
@@ -87,7 +89,8 @@ public class SimpleMap<K, V> implements Map<K, V> {
             final int expectedModCount = modCount;
             int index;
 
-            @Override public boolean hasNext() {
+            @Override
+            public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
@@ -97,7 +100,8 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 return index < table.length;
             }
 
-            @Override public K next() {
+            @Override
+            public K next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
@@ -105,7 +109,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
             }
         };
     }
-    
+
     private static class MapEntry<K, V> {
 
         K key;

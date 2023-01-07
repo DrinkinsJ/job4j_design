@@ -1,7 +1,11 @@
 package ru.job4j.stream;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collector;
 
 public class CollectorArithmetic {
@@ -20,6 +24,6 @@ public class CollectorArithmetic {
             return number;
         };
         return list.stream()
-                   .collect(Collector.of(supplier, consumer, merger, function));
+                .collect(Collector.of(supplier, consumer, merger, function));
     }
 }

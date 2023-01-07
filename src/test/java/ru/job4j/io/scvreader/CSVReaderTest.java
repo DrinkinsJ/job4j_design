@@ -123,7 +123,7 @@ class CSVReaderTest {
         });
         assertThatThrownBy(() -> CSVReader.handle(argsName)).isInstanceOf(IllegalArgumentException.class);
     }
-    
+
     @Test
     void whenSourceEmpty(@TempDir Path folder) throws IOException {
         File file = folder.resolve("source.csv").toFile();

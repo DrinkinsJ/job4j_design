@@ -1,6 +1,8 @@
 package ru.job4j.io;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class EvenNumberFile {
     public static void main(String[] args) {

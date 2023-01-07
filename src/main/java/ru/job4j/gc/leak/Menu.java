@@ -32,7 +32,8 @@ public class Menu {
         start(commentGenerator, scanner, userGenerator, postStore);
     }
 
-    private static void start(CommentGenerator commentGenerator, Scanner scanner, UserGenerator userGenerator, PostStore postStore) {
+    private static void start(CommentGenerator commentGenerator, Scanner scanner, UserGenerator userGenerator,
+                              PostStore postStore) {
         boolean run = true;
         while (run) {
             System.out.println(MENU);

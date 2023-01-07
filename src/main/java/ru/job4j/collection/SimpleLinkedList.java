@@ -39,8 +39,8 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<>() {
-            private Node<E> tail = node;
             final int expectedMod = modCount;
+            private Node<E> tail = node;
 
             @Override
             public boolean hasNext() {

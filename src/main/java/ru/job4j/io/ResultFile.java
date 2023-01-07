@@ -1,9 +1,11 @@
 package ru.job4j.io;
 
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class ResultFile {
-    public  static final int SIZE = 9;
+    public static final int SIZE = 9;
+
     public static void main(String[] args) {
         try (FileOutputStream out = new FileOutputStream("result.txt")) {
             for (int i = 0; i < SIZE; i++) {

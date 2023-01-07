@@ -1,8 +1,15 @@
 package ru.job4j.io.chatterbot;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public class ConsoleChat {
     private static final String OUT = "закончить";
@@ -41,7 +48,7 @@ public class ConsoleChat {
         do {
             s = scanner.nextLine();
             log.add(String.format("User: %s" + System.lineSeparator(), s));
-            if (STOP.equals(s)  || OUT.equals(s)) {
+            if (STOP.equals(s) || OUT.equals(s)) {
                 isEnable = false;
             }
             if (CONTINUE.equals(s)) {
@@ -55,13 +62,12 @@ public class ConsoleChat {
         saveLog(log);
     }
 
-
     private List<String> readPhrases() throws IOException {
         List<String> phrases = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(
                 new FileReader(botAnswers))) {
             in.lines()
-              .forEach(phrases::add);
+                    .forEach(phrases::add);
         }
         return phrases;
     }

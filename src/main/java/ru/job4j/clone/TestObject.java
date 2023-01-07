@@ -4,13 +4,6 @@ public class TestObject implements Cloneable {
     int num;
     InnerObject innerObj;
 
-    @Override
-    protected TestObject clone() throws CloneNotSupportedException {
-        TestObject testObj = (TestObject) super.clone();
-        testObj.innerObj = innerObj.clone();
-        return testObj;
-    }
-
     public static void main(String[] args) throws CloneNotSupportedException {
         TestObject testObj1 = new TestObject();
         testObj1.num = 5;
@@ -26,6 +19,12 @@ public class TestObject implements Cloneable {
         System.out.println("Скопированный класс: " + testObj2.innerObj.num);
     }
 
+    @Override
+    protected TestObject clone() throws CloneNotSupportedException {
+        TestObject testObj = (TestObject) super.clone();
+        testObj.innerObj = innerObj.clone();
+        return testObj;
+    }
     public static class InnerObject implements Cloneable {
         int num;
 

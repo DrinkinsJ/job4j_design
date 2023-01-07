@@ -5,11 +5,9 @@ import java.util.Objects;
 
 public class Post {
 
-    private int id;
-
     private final String text;
-
     private final List<Comment> comments;
+    private int id;
 
     public Post(String text, List<Comment> comments) {
         this.text = text;
@@ -23,7 +21,6 @@ public class Post {
     public void setId(Integer id) {
         this.id = id;
     }
-
 
     @Override
     public boolean equals(Object o) {

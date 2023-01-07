@@ -15,8 +15,8 @@ class ConfigTest {
             System.out.println(e.toString());
         }
     }
-    
-    @Test 
+
+    @Test
     void whenPairWithCommentAndKeyEmpty() {
         try {
             String path = "data/noKey.properties";
@@ -26,8 +26,8 @@ class ConfigTest {
             System.out.println(e.toString());
         }
     }
-    
-    @Test 
+
+    @Test
     void whenPairWithCommentAndKeyWithValueEmpty() {
         try {
             String path = "data/noKeyNoValue.properties";

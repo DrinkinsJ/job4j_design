@@ -41,7 +41,8 @@ public class Info {
         this.deleted = deleted;
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -52,15 +53,17 @@ public class Info {
         return added == info.added && changed == info.changed && deleted == info.deleted;
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         return Objects.hash(added, changed, deleted);
     }
 
-    @Override public String toString() {
-        return "Info{" 
-                + "added=" + added 
-                + ", changed=" + changed 
-                + ", deleted=" + deleted 
+    @Override
+    public String toString() {
+        return "Info{"
+                + "added=" + added
+                + ", changed=" + changed
+                + ", deleted=" + deleted
                 + '}';
     }
 }

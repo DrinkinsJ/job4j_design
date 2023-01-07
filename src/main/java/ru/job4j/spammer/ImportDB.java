@@ -47,7 +47,6 @@ public class ImportDB {
         return new User(userData[0], userData[1]);
     }
 
-
     private boolean validate(String s) {
         if (!s.contains(";")) {
             throw new IllegalArgumentException(String.format("error param %s", s));

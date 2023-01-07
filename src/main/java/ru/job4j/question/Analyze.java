@@ -1,6 +1,8 @@
 package ru.job4j.question;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Analyze {
 
@@ -14,7 +16,7 @@ public class Analyze {
             if (!diffMap.containsKey(curr.getId())) {
                 info.setAdded(info.getAdded() + 1);
             } else if (!curr.getName()
-                            .equals(diffMap.get(curr.getId()))) {
+                    .equals(diffMap.get(curr.getId()))) {
                 info.setChanged(info.getChanged() + 1);
             }
             info.setDeleted(previous.size() - current.size() + info.getAdded());

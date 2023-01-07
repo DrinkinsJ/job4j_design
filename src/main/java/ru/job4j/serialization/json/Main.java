@@ -8,10 +8,10 @@ public class Main {
     public static void main(String[] args) {
         final Worker worker = new Worker(true, 10, new Contact(654321, "+7(926)323-45-65"),
                 new String[] {"Java", "io", "serialization"});
-        
+
         final Gson gson = new GsonBuilder().create();
         System.out.println(gson.toJson(worker));
-        
+
         final String workerJson =
                 "{"
                         + "\"isActive\":false,"

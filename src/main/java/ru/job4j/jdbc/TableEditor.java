@@ -10,9 +10,8 @@ import java.util.StringJoiner;
 
 public class TableEditor implements AutoCloseable {
 
-    private Connection connection;
-
     private final Properties properties;
+    private Connection connection;
 
     public TableEditor(Properties properties) throws Exception {
         this.properties = properties;
@@ -42,6 +41,25 @@ public class TableEditor implements AutoCloseable {
         return prop;
     }
 
+    public static String getTableScheme(Connection connection, String tableName) throws Exception {
+        var rowSeparator = "-".repeat(30).concat(System.lineSeparator());
+        var header = String.format("%-15s|%-15s%n", "NAME", "TYPE");
+        var buffer = new StringJoiner(rowSeparator, rowSeparator, rowSeparator);
+        buffer.add(header);
+        try (var statement = connection.createStatement()) {
+            var selection = statement.executeQuery(String.format(
+                    "select * from %s limit 1", tableName
+            ));
+            var metaData = selection.getMetaData();
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                buffer.add(String.format("%-15s|%-15s%n",
+                        metaData.getColumnName(i), metaData.getColumnTypeName(i))
+                );
+            }
+        }
+        return buffer.toString();
+    }
+
     private void initConnection() throws Exception {
         Class.forName(properties.getProperty("driver"));
         String url = properties.getProperty("db");
@@ -49,7 +67,6 @@ public class TableEditor implements AutoCloseable {
         String password = properties.getProperty("password");
         connection = DriverManager.getConnection(url, login, password);
     }
-
 
     public void createTable(String tableName) throws Exception {
         String sql = String.format(
@@ -90,25 +107,6 @@ public class TableEditor implements AutoCloseable {
                 columnName,
                 newColumnName);
         createStatement(sql);
-    }
-
-    public static String getTableScheme(Connection connection, String tableName) throws Exception {
-        var rowSeparator = "-".repeat(30).concat(System.lineSeparator());
-        var header = String.format("%-15s|%-15s%n", "NAME", "TYPE");
-        var buffer = new StringJoiner(rowSeparator, rowSeparator, rowSeparator);
-        buffer.add(header);
-        try (var statement = connection.createStatement()) {
-            var selection = statement.executeQuery(String.format(
-                    "select * from %s limit 1", tableName
-            ));
-            var metaData = selection.getMetaData();
-            for (int i = 1; i <= metaData.getColumnCount(); i++) {
-                buffer.add(String.format("%-15s|%-15s%n",
-                        metaData.getColumnName(i), metaData.getColumnTypeName(i))
-                );
-            }
-        }
-        return buffer.toString();
     }
 
     private void createStatement(String sql) throws SQLException {

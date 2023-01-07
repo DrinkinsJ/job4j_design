@@ -24,8 +24,9 @@ public class UserStore implements Store<User> {
         return store.findById(id);
     }
 
-    @Override public String toString() {
-        return "UserStore{" 
+    @Override
+    public String toString() {
+        return "UserStore{"
                 + "store=" + store
                 + '}';
     }

@@ -44,7 +44,8 @@ public class FileProperty {
         return Objects.hash(size, name);
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return "FileProperty{"
                 + "size=" + size
                 + ", name='" + name + '\''

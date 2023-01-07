@@ -1,14 +1,31 @@
 package ru.job4j.io;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class ArgsName {
 
     private final Map<String, String> values = new HashMap<>();
 
+    public static ArgsName of(String[] args) {
+        ArgsName names = new ArgsName();
+        names.parse(args);
+        return names;
+    }
+
+    public static void main(String[] args) {
+        ArgsName jvm = ArgsName.of(new String[]{"-Xmx=512", "-encoding=UTF-8"});
+        System.out.println(jvm.get("Xmx"));
+
+        ArgsName zip = ArgsName.of(new String[]{"-out=project.zip", "-encoding=UTF-8"});
+        System.out.println(zip.get("out"));
+    }
+
     public String get(String key) {
         if (!values.containsKey(key)) {
-            throw  new IllegalArgumentException("Not contain key");
+            throw new IllegalArgumentException("Not contain key");
         } else {
             return values.get(key);
         }
@@ -34,19 +51,5 @@ public class ArgsName {
             throw new IllegalArgumentException(String.format("error param %s", s));
         }
         return true;
-    }
-
-    public static ArgsName of(String[] args) {
-        ArgsName names = new ArgsName();
-        names.parse(args);
-        return names;
-    }
-
-    public static void main(String[] args) {
-        ArgsName jvm = ArgsName.of(new String[] {"-Xmx=512", "-encoding=UTF-8"});
-        System.out.println(jvm.get("Xmx"));
-
-        ArgsName zip = ArgsName.of(new String[] {"-out=project.zip", "-encoding=UTF-8"});
-        System.out.println(zip.get("out"));
     }
 }

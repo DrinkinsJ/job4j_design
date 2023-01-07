@@ -13,10 +13,11 @@ public class User extends Base {
         return username;
     }
 
-    @Override public String toString() {
-        return "User{" 
-                + "id='" + getId() + '\'' 
-                + "username='" + username + '\'' 
+    @Override
+    public String toString() {
+        return "User{"
+                + "id='" + getId() + '\''
+                + "username='" + username + '\''
                 + '}';
     }
 }

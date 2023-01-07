@@ -13,7 +13,8 @@ public class Role extends Base {
         return username;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return "User{"
                 + "id='" + getId() + '\''
                 + "username='" + username + '\''

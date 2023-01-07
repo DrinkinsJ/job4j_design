@@ -1,6 +1,7 @@
 package ru.job4j.generic.store;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class MemStore<T extends Base> implements Store<T> {
 
@@ -26,7 +27,8 @@ public final class MemStore<T extends Base> implements Store<T> {
         return storage.get(id);
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return "MemStore{"
                 + "storage=" + storage
                 + '}';

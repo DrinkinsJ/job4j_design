@@ -2,10 +2,18 @@ package ru.job4j.io;
 
 import ru.job4j.io.search.Search;
 
-import java.io.*;
-import java.nio.file.*;
-import java.util.*;
-import java.util.zip.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class Zip {
 
@@ -19,22 +27,22 @@ public class Zip {
         File output = new File(argsName.get("o"));
         Path path = Paths.get(argsName.get("d"));
         sources = new ArrayList<>(Search.search(path, p -> !p.toFile()
-                                                             .getName()
-                                                             .endsWith(argsName.get("e"))));
+                .getName()
+                .endsWith(argsName.get("e"))));
         Zip zip = new Zip();
         zip.packFiles(sources, output);
     }
 
     private static void validate(ArgsName argsName) {
         if (!new File(argsName.get("o")).canWrite() || !argsName.get("o")
-                                                              .endsWith(".zip")) {
+                .endsWith(".zip")) {
             throw new IllegalArgumentException("Output file must be .zip");
         }
         if (!new File(argsName.get("d")).isDirectory()) {
             throw new IllegalArgumentException("Not directory");
         }
         if (!argsName.get("e")
-                     .contains(".class")) {
+                .contains(".class")) {
             throw new IllegalArgumentException("exclude must end .class");
         }
     }
@@ -43,9 +51,9 @@ public class Zip {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
             for (Path file : sources) {
                 zip.putNextEntry(new ZipEntry(file.toFile()
-                                                  .getPath()));
+                        .getPath()));
                 try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(file.toFile()
-                                                                                               .getPath()))) {
+                        .getPath()))) {
                     zip.write(out.readAllBytes());
                 }
             }

@@ -24,7 +24,8 @@ public class RoleStore implements Store<User> {
         return store.findById(id);
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return "RoleStore{"
                 + "store=" + store
                 + '}';

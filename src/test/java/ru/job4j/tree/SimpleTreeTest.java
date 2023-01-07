@@ -33,7 +33,7 @@ public class SimpleTreeTest {
         tree.add(5, 6);
         assertThat(tree.add(2, 6)).isFalse();
     }
-    
+
     @Test
     void whenIsBinary() {
         Tree<Integer> tree = new SimpleTree<>(1);

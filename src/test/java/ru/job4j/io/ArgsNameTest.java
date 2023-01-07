@@ -35,12 +35,12 @@ class ArgsNameTest {
         assertThatThrownBy(() -> ArgsName.of(new String[]{}))
                 .isInstanceOf(IllegalArgumentException.class);
     }
-    
+
     @Test
     void whenKeyNotExist() {
         assertThatThrownBy(() -> ArgsName.of(new String[] {"-=512"})).isInstanceOf(IllegalArgumentException.class);
     }
-    
+
     @Test
     void  whenValueNotExist() {
         assertThatThrownBy(() -> ArgsName.of(new String[] {"-Xmx="})).isInstanceOf(IllegalArgumentException.class);

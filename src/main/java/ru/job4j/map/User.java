@@ -1,6 +1,7 @@
 package ru.job4j.map;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 
 public class User {
