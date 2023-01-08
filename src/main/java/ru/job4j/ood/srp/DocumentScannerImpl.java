@@ -1,4 +1,4 @@
-package ru.job4j.odd.srp;
+package ru.job4j.ood.srp;
 
 
 /**
