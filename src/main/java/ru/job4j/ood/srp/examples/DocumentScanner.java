@@ -1,4 +1,4 @@
-package ru.job4j.ood.srp.srpViolationExamples;
+package ru.job4j.ood.srp.examples;
 
 public interface DocumentScanner {
     Object scan();

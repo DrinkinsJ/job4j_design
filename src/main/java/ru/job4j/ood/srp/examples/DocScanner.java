@@ -1,4 +1,4 @@
-package ru.job4j.ood.srp.srpViolationExamples;
+package ru.job4j.ood.srp.examples;
 
 /**
  * Нарушение SRP. Неявное преобразование.

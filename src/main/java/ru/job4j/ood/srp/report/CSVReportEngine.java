@@ -11,14 +11,26 @@ public class CSVReportEngine implements Report {
 
     private final Store store;
     private final DateTimeParser<Calendar> dateTimeParser;
+    private final String separator;
 
-    public CSVReportEngine(Store store, DateTimeParser<Calendar> dateTimeParser) {
+    public CSVReportEngine(Store store, DateTimeParser<Calendar> dateTimeParser, String separator) {
         this.store = store;
         this.dateTimeParser = dateTimeParser;
+        this.separator = separator;
     }
 
     @Override
     public String generate(Predicate<Employee> filter) {
-        return null;
+        StringBuilder text = new StringBuilder();
+        text.append("Name; Hired; Fired; Salary;")
+                .append(System.lineSeparator());
+        for (Employee employee : store.findBy(filter)) {
+            text.append(employee.getName()).append(separator)
+                    .append(dateTimeParser.parse(employee.getHired())).append(separator)
+                    .append(dateTimeParser.parse(employee.getFired())).append(separator)
+                    .append(employee.getSalary())
+                    .append(System.lineSeparator());
+        }
+        return text.toString();
     }
 }

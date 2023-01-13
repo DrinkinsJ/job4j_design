@@ -1,4 +1,4 @@
-package ru.job4j.ood.srp.srpViolationExamples;
+package ru.job4j.ood.srp.examples;
 
 /**
  * Класс правильно реализует методы интерфейсов согласно SRP. Проблема в том, что в классе имеется конструктор
