@@ -10,7 +10,7 @@ import java.util.Calendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CSVReportEngineTest {
+class CSVReportEngineTest {
 
     @Test
     void whenOldGenerated() {
@@ -22,13 +22,12 @@ public class CSVReportEngineTest {
         store.add(worker);
         Report engine = new CSVReportEngine(store, parser, separator);
         StringBuilder expect = new StringBuilder()
-                .append("Name; Hired; Fired; Salary;")
+                .append("Name;Hired;Fired;Salary;")
                 .append(System.lineSeparator())
                 .append(worker.getName()).append(separator)
                 .append(parser.parse(worker.getHired())).append(separator)
                 .append(parser.parse(worker.getFired())).append(separator)
-                .append(worker.getSalary())
-                .append(System.lineSeparator());
+                .append(worker.getSalary());
         assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
     }
 }

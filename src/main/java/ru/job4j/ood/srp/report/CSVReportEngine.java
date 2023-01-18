@@ -22,14 +22,13 @@ public class CSVReportEngine implements Report {
     @Override
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
-        text.append("Name; Hired; Fired; Salary;")
+        text.append("Name;Hired;Fired;Salary;")
                 .append(System.lineSeparator());
         for (Employee employee : store.findBy(filter)) {
             text.append(employee.getName()).append(separator)
                     .append(dateTimeParser.parse(employee.getHired())).append(separator)
                     .append(dateTimeParser.parse(employee.getFired())).append(separator)
-                    .append(employee.getSalary())
-                    .append(System.lineSeparator());
+                    .append(employee.getSalary());
         }
         return text.toString();
     }
