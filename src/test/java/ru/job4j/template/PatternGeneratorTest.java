@@ -12,10 +12,10 @@ import java.util.Map;
 class PatternGeneratorTest {
 
     private final String pattern = "I am a ${name}, Who are ${subject}? ";
-    private final Map<String, String> arguments = new HashMap<>();
 
     @Test
     void whenPatternEqualPatternGeneratorOutput() {
+        Map<String, String> arguments = new HashMap<>();
         arguments.put("name", "Igor");
         arguments.put("subject", "you");
         PatternGenerator patternGenerator = new PatternGenerator();
@@ -24,12 +24,14 @@ class PatternGeneratorTest {
 
     @Test
     void whenPatternNotContainKey() {
+        Map<String, String> arguments = new HashMap<>();
         PatternGenerator patternGenerator = new PatternGenerator();
         assertThatThrownBy(() -> patternGenerator.produce(pattern, arguments)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void whenPatternNotContainValue() {
+        Map<String, String> arguments = new HashMap<>();
         arguments.put("name", null);
         arguments.put("subject", null);
         PatternGenerator patternGenerator = new PatternGenerator();
@@ -38,6 +40,7 @@ class PatternGeneratorTest {
 
     @Test
     void whenPatternTemplateIsNull() {
+        Map<String, String> arguments = new HashMap<>();
         arguments.put("name", "Igor");
         arguments.put("subject", "you");
         PatternGenerator patternGenerator = new PatternGenerator();
@@ -46,8 +49,6 @@ class PatternGeneratorTest {
 
     @Test
     void whenPatternArgumentsIsNull() {
-        arguments.put("name", "Igor");
-        arguments.put("subject", "you");
         PatternGenerator patternGenerator = new PatternGenerator();
         assertThatThrownBy(() -> patternGenerator.produce(pattern, null)).isInstanceOf(IllegalArgumentException.class);
     }
