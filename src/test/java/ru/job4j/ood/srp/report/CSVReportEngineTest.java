@@ -22,7 +22,7 @@ class CSVReportEngineTest {
         store.add(worker);
         Report engine = new CSVReportEngine(store, parser, separator);
         StringBuilder expect = new StringBuilder()
-                .append("Name;Hired;Fired;Salary;")
+                .append("Name;Hired;Fired;Salary")
                 .append(System.lineSeparator())
                 .append(worker.getName()).append(separator)
                 .append(parser.parse(worker.getHired())).append(separator)
