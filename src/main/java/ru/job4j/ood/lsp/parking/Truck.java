@@ -1,15 +1,11 @@
 package ru.job4j.ood.lsp.parking;
 
-public class Truck implements Car {
-
-    int size;
+public class Truck extends Vehicle {
 
     public Truck(int size) {
-        this.size = size;
-    }
-
-    @Override
-    public int getSize() {
-        return size;
+        super(size);
+        if (size <= CAR_SIZE) {
+            throw new IllegalArgumentException("Truck size can't be <= 1");
+        }
     }
 }

@@ -14,14 +14,16 @@ class CarParkingTest {
         carParking.add(passengerCar);
         carParking.add(truck);
         assertThat(carParking.getPassengerSeats()).isEqualTo(9);
-        assertThat(carParking.getTruckSeats()).isEqualTo(5);
+        assertThat(carParking.getTruckSeats()).isEqualTo(9);
     }
 
     @Test
     void whenAddTruckAndNoFreeSeats() {
-        CarParking carParking = new CarParking(3, 3);
+        CarParking carParking = new CarParking(3, 1);
         Car truck = new Truck(5);
-        assertThat(carParking.add(truck)).isFalse();
+        Car truck2 = new Truck(5);
+        carParking.add(truck);
+        assertThat(carParking.add(truck2)).isFalse();
     }
     @Test
     void whenAddCarsAndNoFreeSeats() {
@@ -32,9 +34,14 @@ class CarParkingTest {
 
     @Test
     void  whenAddTruckOnPassengerParking() {
-        CarParking carParking = new CarParking(3, 1);
+        CarParking carParking = new CarParking(3, 0);
         Car truck = new Truck(3);
         assertThat(carParking.add(truck)).isTrue();
         assertThat(carParking.getPassengerSeats()).isZero();
+    }
+
+    @Test
+    void whenTruckLessThenOneSize () {
+        assertThatThrownBy(() -> new Truck(1)).isInstanceOf(IllegalArgumentException.class);
     }
 }

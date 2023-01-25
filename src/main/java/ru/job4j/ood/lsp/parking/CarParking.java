@@ -3,6 +3,8 @@ package ru.job4j.ood.lsp.parking;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.job4j.ood.lsp.parking.PassengerCar.CAR_SIZE;
+
 public class CarParking implements Parking {
     private final List<Car> passengerParking;
     private final List<Car> truckParking;
@@ -19,9 +21,9 @@ public class CarParking implements Parking {
     @Override
     public boolean add(Car car) {
         boolean isAdded = false;
-        if (truckSeats >= car.getSize() && car.getSize() > 1) {
+        if (truckSeats > CAR_SIZE && car.getSize() > CAR_SIZE) {
             isAdded = truckParking.add(car);
-            truckSeats -= car.getSize();
+            truckSeats -= CAR_SIZE;
         } else if (passengerSeats >= car.getSize()) {
             isAdded = passengerParking.add(car);
             passengerSeats -= car.getSize();
@@ -29,11 +31,11 @@ public class CarParking implements Parking {
         return isAdded;
     }
 
-    int getPassengerSeats() {
+    public int getPassengerSeats() {
         return passengerSeats;
     }
 
-    int getTruckSeats() {
+    public int getTruckSeats() {
         return truckSeats;
     }
 }
