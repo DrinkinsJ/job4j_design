@@ -41,7 +41,7 @@ class CarParkingTest {
     }
 
     @Test
-    void whenTruckLessThenOneSize () {
+    void whenTruckLessThenOneSize() {
         assertThatThrownBy(() -> new Truck(1)).isInstanceOf(IllegalArgumentException.class);
     }
 }
