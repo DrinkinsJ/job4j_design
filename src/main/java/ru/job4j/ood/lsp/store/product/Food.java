@@ -4,8 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public abstract class Food {
-
-
+    
     private String name;
 
     private LocalDate expiryDate;
@@ -16,7 +15,7 @@ public abstract class Food {
 
     private double price;
 
-    public Food(String name, LocalDate expiryDate, LocalDate createDate, double discount, double price) {
+    protected Food(String name, LocalDate expiryDate, LocalDate createDate, double discount, double price) {
         this.name = name;
         this.expiryDate = expiryDate;
         this.createDate = createDate;
