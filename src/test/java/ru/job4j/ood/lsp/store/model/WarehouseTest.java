@@ -2,7 +2,7 @@ package ru.job4j.ood.lsp.store.model;
 
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.lsp.store.calculator.ExpirationCalculator;
-import ru.job4j.ood.lsp.store.calculator.ExpirationDatePercent;
+import ru.job4j.ood.lsp.store.calculator.LocalDateExpirationCalculator;
 import ru.job4j.ood.lsp.store.product.Food;
 import ru.job4j.ood.lsp.store.product.Meat;
 
@@ -18,7 +18,7 @@ class WarehouseTest {
         LocalDate expiryDate = LocalDate.now().plusDays(10);
         LocalDate createDate = LocalDate.now().minusDays(1);
         Food pork = new Meat("pork", expiryDate, createDate, 15, 300);
-        ExpirationCalculator<LocalDate> expirationCalculator = new ExpirationDatePercent();
+        ExpirationCalculator<LocalDate> expirationCalculator = new LocalDateExpirationCalculator();
         Store warehouse = new Warehouse(expirationCalculator);
         warehouse.add(pork);
         assertThat(warehouse.getAllFood()).isEqualTo(List.of(pork));

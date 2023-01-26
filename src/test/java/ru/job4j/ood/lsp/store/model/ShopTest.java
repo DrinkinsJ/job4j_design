@@ -1,10 +1,8 @@
 package ru.job4j.ood.lsp.store.model;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.lsp.store.calculator.ExpirationCalculator;
-import ru.job4j.ood.lsp.store.calculator.ExpirationDatePercent;
+import ru.job4j.ood.lsp.store.calculator.LocalDateExpirationCalculator;
 import ru.job4j.ood.lsp.store.product.Food;
 import ru.job4j.ood.lsp.store.product.Meat;
 
@@ -19,7 +17,7 @@ class ShopTest {
         LocalDate expiryDate = LocalDate.now().plusDays(20);
         LocalDate createDate = LocalDate.now().minusDays(10);
         Food pork = new Meat("pork", expiryDate, createDate, 15, 300);
-        ExpirationCalculator<LocalDate> expirationCalculator = new ExpirationDatePercent();
+        ExpirationCalculator<LocalDate> expirationCalculator = new LocalDateExpirationCalculator();
         Store shop = new Shop(expirationCalculator);
         shop.add(pork);
         assertThat(shop.getAllFood()).isEqualTo(List.of(pork));
@@ -29,7 +27,7 @@ class ShopTest {
         LocalDate expiryDate = LocalDate.now().plusDays(1);
         LocalDate createDate = LocalDate.now().minusDays(10);
         Food pork = new Meat("pork", expiryDate, createDate, 15, 100);
-        ExpirationCalculator<LocalDate> expirationCalculator = new ExpirationDatePercent();
+        ExpirationCalculator<LocalDate> expirationCalculator = new LocalDateExpirationCalculator();
         Store shop = new Shop(expirationCalculator);
         shop.add(pork);
         pork.setPrice(85.0D);

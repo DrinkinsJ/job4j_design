@@ -2,7 +2,7 @@ package ru.job4j.ood.lsp.store.engine;
 
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.lsp.store.calculator.ExpirationCalculator;
-import ru.job4j.ood.lsp.store.calculator.ExpirationDatePercent;
+import ru.job4j.ood.lsp.store.calculator.LocalDateExpirationCalculator;
 import ru.job4j.ood.lsp.store.model.Shop;
 import ru.job4j.ood.lsp.store.model.Store;
 import ru.job4j.ood.lsp.store.model.Trash;
@@ -23,7 +23,7 @@ class ControlQualityTest {
         Food pork = new Meat("pork", LocalDate.now().plusDays(20), LocalDate.now().minusDays(10), 15, 300);
         Food milk = new Milk("milk", LocalDate.now().minusDays(1), LocalDate.now().minusDays(2), 15, 300);
         Food kefir = new Milk("kefir", LocalDate.now().plusDays(10), LocalDate.now().minusDays(1), 15, 300);
-        ExpirationCalculator<LocalDate> expirationCalculator = new ExpirationDatePercent();
+        ExpirationCalculator<LocalDate> expirationCalculator = new LocalDateExpirationCalculator();
         Store shop = new Shop(expirationCalculator);
         Store warehouse = new Warehouse(expirationCalculator);
         Store trash = new Trash(expirationCalculator);
